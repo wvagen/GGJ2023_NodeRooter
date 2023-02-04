@@ -633,9 +633,10 @@ MonoBehaviour:
   gameMan: {fileID: 1997542145}
   mySyncMomentsTxt: {fileID: 4900000, guid: e91f9108c73aa44a092c2d207eae9944, type: 3}
   audioSource: {fileID: 1997542147}
-  myAudioClip: {fileID: 8300000, guid: c92d59e24f3184982b9f4a7ecb9c2e80, type: 3}
+  myAudioClip: {fileID: 8300000, guid: 1d9a1358948154714949de7b7477d76a, type: 3}
   timeMoments: []
   nodesIndexes: 
+  syncMoments: 
 --- !u!82 &1997542147
 AudioSource:
   m_ObjectHideFlags: 0
