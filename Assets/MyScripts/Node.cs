@@ -10,7 +10,7 @@ public class Node : MonoBehaviour
 
     public GameObject myOutterCircle;
 
-    public float outterCircleRadiusTarget = 0.075f;
+    public float outterCircleRadiusTarget = 0.09f;
     [SerializeField] private Color circleOutRangeCol, circleInRangeCol;
 
     public int myIndex = 0;
@@ -18,7 +18,6 @@ public class Node : MonoBehaviour
     [SerializeField] private float lineThickness = 0.2f;
 
     Rigidbody2D myRig;
-    SpriteRenderer outterCircleSpriteRend;
 
     bool isClicked = false, isWinningClick = false;
     bool canShrinkOutterCircle = false;
@@ -41,32 +40,38 @@ public class Node : MonoBehaviour
     {
         if (canShrinkOutterCircle)
         {
-            if (myOutterCircle.transform.localScale.x > 0)
+            if (myOutterCircle.transform.localScale.x > 0.05f)
             {
                 myOutterCircle.transform.localScale -= (Vector3.one * Time.deltaTime * gameMan.nodeShrinkSpeed);
 
                 if (myOutterCircle.transform.localScale.x <= outterCircleRadiusTarget)
                 {
-                    outterCircleSpriteRend.color = circleInRangeCol;
+                    myOutterCircle.GetComponent<SpriteRenderer>().color = circleInRangeCol;
                     isWinningClick = true;
                 }
             }
-            else
+            else if (!isClicked)
             {
-                Debug.Log("You Loose");
-                gameMan.Loose();
-                canShrinkOutterCircle = false;
-                isWinningClick = false;
+                LoseBehavior();
             }
         }
+    }
+
+    void LoseBehavior()
+    {
+        Debug.Log("You Loose");
+        GetComponent<SpriteRenderer>().color = circleOutRangeCol;
+        myOutterCircle.GetComponent<SpriteRenderer>().color = circleOutRangeCol;
+        gameMan.Loose();
+        canShrinkOutterCircle = false;
+        isWinningClick = false;
     }
 
     public void Bit_Me()
     {
         canShrinkOutterCircle = true;
         myOutterCircle.SetActive(true);
-        outterCircleSpriteRend = myOutterCircle.GetComponent<SpriteRenderer>();
-        outterCircleSpriteRend.color = circleOutRangeCol;
+        myOutterCircle.GetComponent<SpriteRenderer>().color = circleOutRangeCol;
     }
 
     void Init()
@@ -84,18 +89,30 @@ public class Node : MonoBehaviour
         {
             isClicked = true;
 
-
-
             if (gameMan.isGameStarted)
             {
                 if (isWinningClick)
                 {
                     gameMan.Set_Node_Bit(myIndex);
+
+                    if (myOutterCircle.transform.localScale.x > 0.08f)
+                    {
+                        gameMan.MotivationalWords(0);
+                    }
+                    else if (myOutterCircle.transform.localScale.x > 0.07f)
+                    {
+                        gameMan.MotivationalWords(1);
+                    }
+                    else
+                    {
+                        gameMan.MotivationalWords(2);
+                    }
+                    
                     Split_Node();
                 }
                 else
                 {
-                    gameMan.Loose();
+                    LoseBehavior();
                 }
             }
             else

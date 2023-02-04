@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Manager : MonoBehaviour
 {
     public MusicManager musicMan;
     public RawImage rawImg;
+
     public Animator myAnim;
+    public Animator motivationalAnim;
 
     public GameObject gameOverMan;
+
+    public TextMeshProUGUI scoreTxt;
 
     public Text sceneStat;
     public GameObject node;
@@ -28,9 +33,13 @@ public class Manager : MonoBehaviour
     Dictionary<int,Node> spawnedNodes = new Dictionary<int, Node>();
     public List<Node> duplicatedNodes = new List<Node>();
 
-    bool canZoomOut = false;
-
     const float zoomOutRange = 0.5f;
+
+    const short noramlHitScore = 50;
+    const short goodHitScore = 70;
+    const short perfectHitScore = 100;
+
+    int score = 0;
 
     private void Start()
     {
@@ -60,6 +69,12 @@ public class Manager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void HomeBtn()
+    {
+        MusicManager.isExperimentalScene = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
     public void Empty_Slot(int nodeIndex)
     {
         spawnedNodes.Remove(nodeIndex);
@@ -73,8 +88,31 @@ public class Manager : MonoBehaviour
 
     public void Loose()
     {
+        musicMan.audioSource.pitch = 0.8f;
         isGameOver = true;
         gameOverMan.SetActive(true);
+    }
+
+    public void MotivationalWords(byte choice)
+    {
+        switch (choice)
+        {
+            case 1: motivationalAnim.Play("GoodJobAnim", -1, 0); score += goodHitScore; break;
+            case 2: motivationalAnim.Play("PerfectAnim", -1, 0); score += perfectHitScore; break;
+            default:
+                score += noramlHitScore;break;
+        }
+        Update_UI();
+    }
+
+    void Update_UI()
+    {
+        scoreTxt.text = score.ToString();
+        myAnim.Play("ScoreBump",0,0);
+    } 
+
+    public void Win()
+    {
         StartCoroutine(Final_Zoom_Cam());
     }
 
@@ -102,7 +140,6 @@ public class Manager : MonoBehaviour
     void Zoom_Logic(int nodeIndex)
     {
         int minKey = 0, maxKey = 0;
-        Debug.Log("Zoom Logic !");
 
         foreach (KeyValuePair<int, Node> entry in spawnedNodes)
         {
@@ -111,12 +148,8 @@ public class Manager : MonoBehaviour
             // do something with entry.Value or entry.Key
         }
 
-        Debug.Log("Min Key Out ! " + minKey);
-        Debug.Log("Max Key Out ! " + maxKey);
-
         if (minKey == spawnedNodes[nodeIndex].myIndex || spawnedNodes[nodeIndex].myIndex == maxKey)
         {
-            Debug.Log("Zoom Out !");
             StartCoroutine(Zoom_Out_Cam());
         }
     }

@@ -88,7 +88,6 @@ public class MusicManager : MonoBehaviour
 
     public void Mark_Bit(int nodeIndex)
     {
-        Debug.Log("HELLO!!!!!");
         syncMoments += timeValue.ToString() + " " + nodeIndex.ToString() + "\n";
     }
 
