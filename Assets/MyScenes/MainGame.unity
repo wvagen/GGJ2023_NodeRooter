@@ -253,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeSpeed: 1
   isGameStarted: 0
+  isFirstNode: 1
 --- !u!1001 &2977063428551086358
 PrefabInstance:
   m_ObjectHideFlags: 0
