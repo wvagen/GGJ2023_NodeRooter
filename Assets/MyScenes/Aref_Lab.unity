@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -631,9 +632,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMan: {fileID: 1997542145}
-  mySyncMomentsTxt: {fileID: 4900000, guid: e91f9108c73aa44a092c2d207eae9944, type: 3}
+  mySyncMomentsTxt: {fileID: 4900000, guid: 7c0cc2cb024cef844b04ba432b59e34e, type: 3}
   audioSource: {fileID: 1997542147}
-  myAudioClip: {fileID: 8300000, guid: 1d9a1358948154714949de7b7477d76a, type: 3}
+  myAudioClip: {fileID: 8300000, guid: b685ef170152a694a9fb98d71a26e52a, type: 3}
   timeMoments: []
   nodesIndexes: 
   syncMoments: 
