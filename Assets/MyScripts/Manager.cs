@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
+    public GameObject node;
+
     public float nodeSpeed = 5;
+    public float nodeShrinkSpeed = 5;
+
     public bool isGameStarted = false;
 
     Camera myCam;
@@ -30,6 +34,11 @@ public class Manager : MonoBehaviour
     {
         spawnedNodes.Remove(nodeIndex);
 
+    }
+
+    public void Bit_Node(int nodeIndex)
+    {
+        spawnedNodes[nodeIndex].Bit_Me();
     }
 
     public bool Is_Node_Exists(int nodeIndex)

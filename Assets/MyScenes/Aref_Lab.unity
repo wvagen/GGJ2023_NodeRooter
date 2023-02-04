@@ -327,7 +327,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1997542144}
   - component: {fileID: 1997542145}
-  - component: {fileID: 1997542146}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -367,22 +366,6 @@ MonoBehaviour:
   nodeShrinkSpeed: 0.05
   isGameStarted: 0
   duplicatedNodes: []
---- !u!114 &1997542146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997542143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fbcbb50c264a4aa9b9795b1517cc6de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMan: {fileID: 1997542145}
-  mySyncMomentsTxt: {fileID: 4900000, guid: e91f9108c73aa44a092c2d207eae9944, type: 3}
-  timeMoments: []
-  nodesIndexes: 
 --- !u!1001 &2977063428551086358
 PrefabInstance:
   m_ObjectHideFlags: 0
