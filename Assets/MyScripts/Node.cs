@@ -82,10 +82,12 @@ public class Node : MonoBehaviour
         if (!isClicked)
         {
             isClicked = true;
-            gameMan.Set_Node_Bit(myIndex);
 
             if (gameMan.isGameStarted)
+            {
                 Split_Node();
+                gameMan.Set_Node_Bit(myIndex);
+            }
             else
                 Start_Node();
         }
@@ -98,7 +100,7 @@ public class Node : MonoBehaviour
         GameObject tempNode = Instantiate(gameMan.node, rightNode, Quaternion.identity);
         tempNode.GetComponent<Manager>();
         gameMan.Set_Node_To_Follow(tempNode.GetComponent<Node>(),0);
-        gameMan.Insert_Node((int)rightNode.x, this);
+        gameMan.Insert_Node((int)rightNode.x, tempNode.GetComponent<Node>());
         tempNode.GetComponent<Node>().gameMan = gameMan;
 
         myLine.startWidth = lineThickness;

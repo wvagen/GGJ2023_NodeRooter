@@ -56,15 +56,15 @@ public class MusicManager : MonoBehaviour
     {
         if (canStart && !isExperimentalScene)
         {
-            timeValue += Time.fixedDeltaTime;
-            if (timeValue >= timeMoments[timerCount])
+            timeValue += Time.deltaTime;
+            if (timeMoments.Count - 1 > timerCount && timeValue >= timeMoments[timerCount])
             {
-                timerCount++;
                 Next_Bit();
+                timerCount++;
             }
         }else if (canStart)
         {
-            timeValue += Time.fixedDeltaTime;
+            timeValue += Time.deltaTime;
             if (!audioSource.isPlaying)
             {
                 Debug.Log("Music Saved!");
@@ -83,7 +83,7 @@ public class MusicManager : MonoBehaviour
 
     void Next_Bit()
     {
-        gameMan.Bit_Node(nodesIndexes[timerCount + 1]);
+        gameMan.Bit_Node(nodesIndexes[timerCount]);
     }
 
     public void Mark_Bit(int nodeIndex)

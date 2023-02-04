@@ -51,7 +51,6 @@ public class Manager : MonoBehaviour
 
     public void Bit_Node(int nodeIndex)
     {
-        Debug.Log("nodeIndex " + nodeIndex);
         spawnedNodes[nodeIndex].Bit_Me();
     }
 
