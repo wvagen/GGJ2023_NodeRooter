@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
     public MusicManager musicMan;
+    public RawImage rawImg;
+    public Animator myAnim;
+
+    public GameObject gameOverMan;
 
     public Text sceneStat;
     public GameObject node;
@@ -15,6 +19,8 @@ public class Manager : MonoBehaviour
     public float nodeShrinkSpeed = 5;
 
     public bool isGameStarted = false;
+
+    public bool isGameOver = false;
 
     Camera myCam;
     Node followedNode;
@@ -38,6 +44,7 @@ public class Manager : MonoBehaviour
     public void Can_Start()
     {
         musicMan.Can_Start();
+        myAnim.Play("StartGame");
         isGameStarted = true;
     }
 
@@ -45,6 +52,12 @@ public class Manager : MonoBehaviour
     {
         duplicatedNodes.Add(newNode);
         spawnedNodes[nodeIndex] = newNode;
+    }
+
+    public void RetryBtn()
+    {
+        MusicManager.isExperimentalScene = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Empty_Slot(int nodeIndex)
@@ -56,6 +69,25 @@ public class Manager : MonoBehaviour
     public void Bit_Node(int nodeIndex)
     {
         spawnedNodes[nodeIndex].Bit_Me();
+    }
+
+    public void Loose()
+    {
+        isGameOver = true;
+        gameOverMan.SetActive(true);
+        StartCoroutine(Final_Zoom_Cam());
+    }
+
+    IEnumerator Final_Zoom_Cam()
+    {
+        Vector3 targetPos = myCam.transform.position;
+        targetPos.y = -15;
+        while (myCam.orthographicSize < 30)
+        {
+            myCam.orthographicSize += Time.deltaTime * 15;
+            yield return new WaitForEndOfFrame();
+        }
+        //myCam.transform.position = targetPos;
     }
 
     public void Set_Node_Bit(int nodeIndex)
@@ -98,7 +130,14 @@ public class Manager : MonoBehaviour
     {
         Cam_Follow();
         Restart_Scene_Trigger();
+        Loopable_BG();
         //Log_Dictionnary();
+    }
+
+    void Loopable_BG()
+    {
+        if (isGameStarted)
+            rawImg.uvRect = new Rect(rawImg.uvRect.x + Time.deltaTime * 0.01f, 0, 1, 1);
     }
 
     IEnumerator Zoom_Out_Cam()
@@ -138,10 +177,13 @@ public class Manager : MonoBehaviour
 
     void Cam_Follow()
     {
-        Vector3 nodeFol = Vector2.zero;
-        nodeFol.y = followedNode.transform.position.y;
-        nodeFol.z = -10;
-        myCam.transform.position = nodeFol;
+        if (!isGameOver)
+        {
+            Vector3 nodeFol = Vector2.zero;
+            nodeFol.y = followedNode.transform.position.y;
+            nodeFol.z = -10;
+            myCam.transform.position = nodeFol;
+        }
     }
 
     public void Set_Node_To_Follow(Node followedNode,int nodeIndex)

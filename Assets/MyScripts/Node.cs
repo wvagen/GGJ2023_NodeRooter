@@ -11,7 +11,7 @@ public class Node : MonoBehaviour
     public GameObject myOutterCircle;
 
     public float outterCircleRadiusTarget = 0.075f;
-    [SerializeField] private Color circleOutRangeCol,circleInRangeCol;
+    [SerializeField] private Color circleOutRangeCol, circleInRangeCol;
 
     public int myIndex = 0;
 
@@ -54,6 +54,7 @@ public class Node : MonoBehaviour
             else
             {
                 Debug.Log("You Loose");
+                gameMan.Loose();
                 canShrinkOutterCircle = false;
                 isWinningClick = false;
             }
@@ -63,7 +64,7 @@ public class Node : MonoBehaviour
     public void Bit_Me()
     {
         canShrinkOutterCircle = true;
-        myOutterCircle.SetActive(true); 
+        myOutterCircle.SetActive(true);
         outterCircleSpriteRend = myOutterCircle.GetComponent<SpriteRenderer>();
         outterCircleSpriteRend.color = circleOutRangeCol;
     }
@@ -83,10 +84,19 @@ public class Node : MonoBehaviour
         {
             isClicked = true;
 
+
+
             if (gameMan.isGameStarted)
             {
-                gameMan.Set_Node_Bit(myIndex);
-                Split_Node();
+                if (isWinningClick)
+                {
+                    gameMan.Set_Node_Bit(myIndex);
+                    Split_Node();
+                }
+                else
+                {
+                    gameMan.Loose();
+                }
             }
             else
                 Start_Node();
@@ -99,7 +109,7 @@ public class Node : MonoBehaviour
 
         GameObject tempNode = Instantiate(gameMan.node, rightNode, Quaternion.identity);
         tempNode.GetComponent<Manager>();
-        gameMan.Set_Node_To_Follow(tempNode.GetComponent<Node>(),0);
+        gameMan.Set_Node_To_Follow(tempNode.GetComponent<Node>(), 0);
         gameMan.Insert_Node((int)rightNode.x, tempNode.GetComponent<Node>());
         tempNode.GetComponent<Node>().gameMan = gameMan;
 
