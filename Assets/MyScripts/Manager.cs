@@ -22,6 +22,10 @@ public class Manager : MonoBehaviour
     Dictionary<int,Node> spawnedNodes = new Dictionary<int, Node>();
     public List<Node> duplicatedNodes = new List<Node>();
 
+    bool canZoomOut = false;
+
+    const float zoomOutRange = 0.5f;
+
     private void Start()
     {
         myCam = Camera.main;
@@ -60,6 +64,29 @@ public class Manager : MonoBehaviour
         {
             musicMan.Mark_Bit(nodeIndex);
         }
+        Zoom_Logic(nodeIndex);
+    }
+
+    void Zoom_Logic(int nodeIndex)
+    {
+        int minKey = 0, maxKey = 0;
+        Debug.Log("Zoom Logic !");
+
+        foreach (KeyValuePair<int, Node> entry in spawnedNodes)
+        {
+            if (minKey > entry.Value.myIndex) minKey = entry.Value.myIndex;
+            if (maxKey < entry.Value.myIndex) maxKey = entry.Value.myIndex;
+            // do something with entry.Value or entry.Key
+        }
+
+        Debug.Log("Min Key Out ! " + minKey);
+        Debug.Log("Max Key Out ! " + maxKey);
+
+        if (minKey == spawnedNodes[nodeIndex].myIndex || spawnedNodes[nodeIndex].myIndex == maxKey)
+        {
+            Debug.Log("Zoom Out !");
+            StartCoroutine(Zoom_Out_Cam());
+        }
     }
 
     public bool Is_Node_Exists(int nodeIndex)
@@ -72,6 +99,17 @@ public class Manager : MonoBehaviour
         Cam_Follow();
         Restart_Scene_Trigger();
         //Log_Dictionnary();
+    }
+
+    IEnumerator Zoom_Out_Cam()
+    {
+        float targetSize = myCam.orthographicSize + zoomOutRange;
+        while (myCam.orthographicSize < targetSize)
+        {
+            myCam.orthographicSize = Mathf.Lerp(myCam.orthographicSize, targetSize, Time.deltaTime * 5);
+            yield return new WaitForEndOfFrame();
+        }
+
     }
 
     void Log_Dictionnary()

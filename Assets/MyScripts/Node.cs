@@ -85,8 +85,8 @@ public class Node : MonoBehaviour
 
             if (gameMan.isGameStarted)
             {
-                Split_Node();
                 gameMan.Set_Node_Bit(myIndex);
+                Split_Node();
             }
             else
                 Start_Node();
