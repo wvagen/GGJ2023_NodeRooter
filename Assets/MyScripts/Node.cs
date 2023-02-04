@@ -15,7 +15,7 @@ public class Node : MonoBehaviour
 
     public int myIndex = 0;
 
-    [SerializeField] private float lineThickness = 0.2f;
+    [SerializeField] private float lineThickness = 0.1f;
 
     Rigidbody2D myRig;
 
@@ -50,7 +50,7 @@ public class Node : MonoBehaviour
                     isWinningClick = true;
                 }
             }
-            else if (!isClicked)
+            else if (!isClicked && !gameMan.isGameOver)
             {
                 LoseBehavior();
             }

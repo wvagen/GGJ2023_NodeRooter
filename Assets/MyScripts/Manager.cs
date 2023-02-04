@@ -10,12 +10,16 @@ public class Manager : MonoBehaviour
     public MusicManager musicMan;
     public RawImage rawImg;
 
+    public int levelIndex = 0;
+
     public Animator myAnim;
     public Animator motivationalAnim;
 
-    public GameObject gameOverMan;
+    public GameObject gameOverMan, winPanel;
 
     public TextMeshProUGUI scoreTxt;
+
+    public TextMeshProUGUI bestMarkTxt, currentmarkTxt;
 
     public Text sceneStat;
     public GameObject node;
@@ -26,6 +30,8 @@ public class Manager : MonoBehaviour
     public bool isGameStarted = false;
 
     public bool isGameOver = false;
+
+    string[] marks = {"A", "A+", "S" };
 
     Camera myCam;
     Node followedNode;
@@ -113,7 +119,40 @@ public class Manager : MonoBehaviour
 
     public void Win()
     {
+        winPanel.SetActive(true);
+        isGameOver = true;
+        Affect_Mark();
         StartCoroutine(Final_Zoom_Cam());
+    }
+
+    void Affect_Mark()
+    {
+        int markIndex = 0,bestMarkIndex = 0;
+        if (score - 100 >= perfectHitScore * musicMan.timeMoments.Count)
+        {
+            markIndex = marks.Length - 1;
+        }else if (score - 100 >= goodHitScore * musicMan.timeMoments.Count)
+        {
+            markIndex = marks.Length - 2;
+        }
+        else
+        {
+            markIndex = marks.Length - 3;
+        }
+        if (PlayerPrefs.HasKey(levelIndex + "bestMark"))
+        {
+            bestMarkIndex = PlayerPrefs.GetInt(levelIndex + "bestMark", 0);
+        }
+
+        if (bestMarkIndex <= markIndex)
+        {
+            bestMarkIndex = markIndex;
+            PlayerPrefs.SetInt(levelIndex + "bestMark", bestMarkIndex);
+        }
+
+        bestMarkTxt.text = marks[bestMarkIndex];
+        currentmarkTxt.text = marks[markIndex];
+
     }
 
     IEnumerator Final_Zoom_Cam()

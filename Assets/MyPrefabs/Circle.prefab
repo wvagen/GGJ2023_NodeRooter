@@ -126,7 +126,7 @@ MonoBehaviour:
   circleOutRangeCol: {r: 0.74509805, g: 0.37238187, b: 0.35686272, a: 1}
   circleInRangeCol: {r: 0.47776192, g: 0.745283, b: 0.35506406, a: 1}
   myIndex: 0
-  lineThickness: 0.2
+  lineThickness: 0.08
 --- !u!96 &7673417049593284147
 TrailRenderer:
   serializedVersion: 2
@@ -172,7 +172,7 @@ TrailRenderer:
   m_Time: 1000
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -269,16 +269,25 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.040901184
-        value: 0.15686226
+        time: 0.046458513
+        value: 0.09999961
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.068761826
         inSlope: 0
         outSlope: 0
         tangentMode: 0
