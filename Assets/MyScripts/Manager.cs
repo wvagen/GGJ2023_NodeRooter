@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
+    public MusicManager musicMan;
+
+    public Text sceneStat;
     public GameObject node;
 
     public float nodeSpeed = 5;
@@ -22,6 +26,15 @@ public class Manager : MonoBehaviour
     {
         myCam = Camera.main;
         followedNode = FindObjectOfType<Node>();
+
+        if (MusicManager.isExperimentalScene) sceneStat.text = "Lab Scene";
+        else sceneStat.text = "";
+    }
+
+    public void Can_Start()
+    {
+        musicMan.Can_Start();
+        isGameStarted = true;
     }
 
     public void Insert_Node(int nodeIndex, Node newNode)
@@ -38,7 +51,16 @@ public class Manager : MonoBehaviour
 
     public void Bit_Node(int nodeIndex)
     {
+        Debug.Log("nodeIndex " + nodeIndex);
         spawnedNodes[nodeIndex].Bit_Me();
+    }
+
+    public void Set_Node_Bit(int nodeIndex)
+    {
+        if (MusicManager.isExperimentalScene)
+        {
+            musicMan.Mark_Bit(nodeIndex);
+        }
     }
 
     public bool Is_Node_Exists(int nodeIndex)
@@ -50,7 +72,7 @@ public class Manager : MonoBehaviour
     {
         Cam_Follow();
         Restart_Scene_Trigger();
-        Log_Dictionnary();
+        //Log_Dictionnary();
     }
 
     void Log_Dictionnary()
@@ -65,7 +87,16 @@ public class Manager : MonoBehaviour
 
     void Restart_Scene_Trigger()
     {
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            MusicManager.isExperimentalScene = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            MusicManager.isExperimentalScene = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void Cam_Follow()

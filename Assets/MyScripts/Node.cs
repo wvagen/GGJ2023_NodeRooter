@@ -82,6 +82,7 @@ public class Node : MonoBehaviour
         if (!isClicked)
         {
             isClicked = true;
+            gameMan.Set_Node_Bit(myIndex);
 
             if (gameMan.isGameStarted)
                 Split_Node();
@@ -105,7 +106,8 @@ public class Node : MonoBehaviour
 
         myRig = tempNode.GetComponent<Rigidbody2D>();
         myRig.velocity = Vector2.down * gameMan.nodeSpeed;
-        gameMan.isGameStarted = true;
+
+        gameMan.Can_Start();
     }
 
     void Split_Node()
