@@ -10,7 +10,12 @@ public class Manager : MonoBehaviour
     public MusicManager musicMan;
     public RawImage rawImg;
 
-    public int levelIndex = 0;
+    public TextAsset[] textSyncMoments;
+    public AudioClip[] musicList;
+
+    public GameObject rightArrowBtn, leftArrowBtn;
+    public TextMeshProUGUI levelTxt, bestTxt;
+    int levelIndex = 0;
 
     public Animator myAnim;
     public Animator motivationalAnim;
@@ -51,6 +56,8 @@ public class Manager : MonoBehaviour
     {
         myCam = Camera.main;
         followedNode = FindObjectOfType<Node>();
+        scoreTxt.gameObject.SetActive(false);
+        Game_Level_Behavior();
 
         if (MusicManager.isExperimentalScene) sceneStat.text = "Lab Scene";
         else sceneStat.text = "";
@@ -60,6 +67,7 @@ public class Manager : MonoBehaviour
     {
         musicMan.Can_Start();
         myAnim.Play("StartGame");
+        scoreTxt.gameObject.SetActive(true);
         isGameStarted = true;
     }
 
@@ -73,6 +81,37 @@ public class Manager : MonoBehaviour
     {
         MusicManager.isExperimentalScene = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Switch_Level(bool isRightBtn)
+    {
+        if (isRightBtn)
+        {
+            levelIndex++;
+        }
+        else
+        {
+            levelIndex--;
+        }
+        Game_Level_Behavior();
+    }
+
+    void Game_Level_Behavior()
+    {
+        leftArrowBtn.SetActive(true);
+        rightArrowBtn.SetActive(true);
+
+        if (levelIndex == 0) leftArrowBtn.SetActive(false);
+        if (levelIndex == textSyncMoments.Length - 1) rightArrowBtn.SetActive(false);
+
+        if (!PlayerPrefs.HasKey(levelIndex + "bestMark")) rightArrowBtn.SetActive(false);
+
+        levelTxt.text = "Level: " + (levelIndex + 1).ToString();
+        bestTxt.text = "Best: " + (PlayerPrefs.HasKey(levelIndex + "bestMark") ? marks[PlayerPrefs.GetInt(levelIndex + "bestMark")] : "NA");
+
+        musicMan.mySyncMomentsTxt = textSyncMoments[levelIndex];
+        musicMan.myAudioClip = musicList[levelIndex];
+
     }
 
     public void HomeBtn()
@@ -273,6 +312,19 @@ public class Manager : MonoBehaviour
                 duplicatedNodes[i].Stop_Node();
             }
         }
-        //duplicatedNodes.Remove(node);
+
+        int count = 0;
+        do
+        {
+            if (duplicatedNodes[count].myIndex == node.myIndex)
+            {
+                duplicatedNodes.RemoveAt(count);
+            }
+            else
+            {
+                count++;
+            }
+
+        } while (count < duplicatedNodes.Count);
     }
 }
