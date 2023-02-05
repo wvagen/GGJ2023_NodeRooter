@@ -111,6 +111,7 @@ public class Manager : MonoBehaviour
 
         musicMan.mySyncMomentsTxt = textSyncMoments[levelIndex];
         musicMan.myAudioClip = musicList[levelIndex];
+        musicMan.Set_Sync();
 
     }
 

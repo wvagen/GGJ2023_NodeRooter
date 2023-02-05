@@ -13,7 +13,7 @@ public class MusicManager : MonoBehaviour
     public TextAsset mySyncMomentsTxt;
 
     public AudioSource audioSource;
-    public AudioClip myAudioClip,winAudioClip;
+    public AudioClip myAudioClip, winAudioClip;
 
     public List<float> timeMoments = new List<float>();
     public List<int> nodesIndexes = new List<int>();
@@ -40,12 +40,16 @@ public class MusicManager : MonoBehaviour
         {
             syncMoments = "";
         }
-        else
-        {
-            timeMoments = GetTimeMoments();
-        }
 
     }
+
+    public void Set_Sync()
+    {
+        timeMoments = new List<float>();
+        nodesIndexes = new List<int>();
+        timeMoments = GetTimeMoments();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -70,7 +74,8 @@ public class MusicManager : MonoBehaviour
                     gameMan.Win();
                 }
             }
-        }else if (canStart)
+        }
+        else if (canStart)
         {
             timeValue += Time.deltaTime;
             if (!audioSource.isPlaying)
@@ -94,7 +99,8 @@ public class MusicManager : MonoBehaviour
         try
         {
             gameMan.Bit_Node(nodesIndexes[timerCount]);
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log(e.Message);
         }
