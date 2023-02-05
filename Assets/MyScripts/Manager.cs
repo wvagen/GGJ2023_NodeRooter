@@ -107,7 +107,7 @@ public class Manager : MonoBehaviour
         if (!PlayerPrefs.HasKey(levelIndex + "bestMark")) rightArrowBtn.SetActive(false);
 
         levelTxt.text = "Level: " + (levelIndex + 1).ToString();
-        bestTxt.text = "Best: " + (PlayerPrefs.HasKey(levelIndex + "bestMark") ? marks[PlayerPrefs.GetInt(levelIndex + "bestMark")] : "NA");
+        bestTxt.text = "Best: " + (PlayerPrefs.HasKey(levelIndex + "bestMark") ? marks[PlayerPrefs.GetInt(levelIndex + "bestMark")] : "N/A");
 
         musicMan.mySyncMomentsTxt = textSyncMoments[levelIndex];
         musicMan.myAudioClip = musicList[levelIndex];
@@ -122,8 +122,7 @@ public class Manager : MonoBehaviour
 
     public void Empty_Slot(int nodeIndex)
     {
-        spawnedNodes.Remove(nodeIndex);
-
+        //spawnedNodes.Remove(nodeIndex);
     }
 
     public void Bit_Node(int nodeIndex)
@@ -242,7 +241,15 @@ public class Manager : MonoBehaviour
         Cam_Follow();
         Restart_Scene_Trigger();
         Loopable_BG();
+        Pause();
         //Log_Dictionnary();
+    }
+
+    private void Pause()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+            Debug.Break();
+
     }
 
     void Loopable_BG()
@@ -312,19 +319,5 @@ public class Manager : MonoBehaviour
                 duplicatedNodes[i].Stop_Node();
             }
         }
-
-        int count = 0;
-        do
-        {
-            if (duplicatedNodes[count].myIndex == node.myIndex)
-            {
-                duplicatedNodes.RemoveAt(count);
-            }
-            else
-            {
-                count++;
-            }
-
-        } while (count < duplicatedNodes.Count);
     }
 }

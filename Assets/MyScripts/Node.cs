@@ -49,8 +49,12 @@ public class Node : MonoBehaviour
                     myOutterCircle.GetComponent<SpriteRenderer>().color = circleInRangeCol;
                     isWinningClick = true;
                 }
+                else
+                {
+                    isWinningClick = false;
+                }
             }
-            else if (!isClicked && !gameMan.isGameOver)
+            else if (!isClicked)
             {
                 LoseBehavior();
             }
@@ -70,6 +74,7 @@ public class Node : MonoBehaviour
     public void Bit_Me()
     {
         canShrinkOutterCircle = true;
+        isWinningClick = true;
         myOutterCircle.SetActive(true);
         myOutterCircle.GetComponent<SpriteRenderer>().color = circleOutRangeCol;
     }
@@ -99,20 +104,20 @@ public class Node : MonoBehaviour
                     {
                         gameMan.MotivationalWords(0);
                     }
-                    else if (myOutterCircle.transform.localScale.x > 0.07f)
+                    else if (myOutterCircle.transform.localScale.x >= 0.072f && myOutterCircle.transform.localScale.x <= 0.077f)
                     {
-                        gameMan.MotivationalWords(1);
+                        gameMan.MotivationalWords(2);
                     }
                     else
                     {
-                        gameMan.MotivationalWords(2);
+                        gameMan.MotivationalWords(1);
                     }
                     
                     Split_Node();
                 }
                 else
                 {
-                    LoseBehavior();
+                   LoseBehavior();
                 }
             }
             else
@@ -156,7 +161,7 @@ public class Node : MonoBehaviour
 
         Node tempNodeScript = tempRightNode.GetComponent<Node>();
         gameMan.Set_Node_To_Follow(tempNodeScript, (int)rightNode.x);
-        gameMan.Insert_Node((int)rightNode.x, tempNodeScript);
+        gameMan.Insert_Node(Mathf.RoundToInt(rightNode.x), tempNodeScript);
         tempNodeScript.gameMan = gameMan;
         //tempNodeScript.Bit_Me();
 
@@ -167,7 +172,7 @@ public class Node : MonoBehaviour
 
         tempNodeScript = tempLeftNode.GetComponent<Node>();
         gameMan.Set_Node_To_Follow(tempNodeScript, (int)leftNode.x);
-        gameMan.Insert_Node((int)leftNode.x, tempNodeScript);
+        gameMan.Insert_Node(Mathf.RoundToInt(leftNode.x), tempNodeScript);
         tempNodeScript.gameMan = gameMan;
         //tempNodeScript.Bit_Me();
     }

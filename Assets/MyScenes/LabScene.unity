@@ -3613,9 +3613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMan: {fileID: 1997542145}
-  mySyncMomentsTxt: {fileID: 4900000, guid: 669495e1e03de4ed2a21b3b1cbdadaa8, type: 3}
+  mySyncMomentsTxt: {fileID: 4900000, guid: 308918d374c6e38429dc63a6eeab6bd4, type: 3}
   audioSource: {fileID: 1997542147}
-  myAudioClip: {fileID: 8300000, guid: 68121a90d0276420ab7020ec4e65e0fc, type: 3}
+  myAudioClip: {fileID: 8300000, guid: b685ef170152a694a9fb98d71a26e52a, type: 3}
   winAudioClip: {fileID: 8300000, guid: 7755a947698ea49d0a5ed9f9ead6e0d4, type: 3}
   timeMoments: []
   nodesIndexes: 

@@ -8,6 +8,7 @@ using System.IO;
 
 public class MusicManager : MonoBehaviour
 {
+
     public Manager gameMan;
     public TextAsset mySyncMomentsTxt;
 
@@ -90,7 +91,13 @@ public class MusicManager : MonoBehaviour
 
     void Next_Bit()
     {
-        gameMan.Bit_Node(nodesIndexes[timerCount]);
+        try
+        {
+            gameMan.Bit_Node(nodesIndexes[timerCount]);
+        }catch(Exception e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 
     public void Mark_Bit(int nodeIndex)
