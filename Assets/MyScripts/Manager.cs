@@ -127,7 +127,11 @@ public class Manager : MonoBehaviour
 
     public void Bit_Node(int nodeIndex)
     {
-        spawnedNodes[nodeIndex].Bit_Me();
+        //spawnedNodes[nodeIndex].Bit_Me();
+        foreach(Node node in duplicatedNodes)
+        {
+            if (node.myIndex == nodeIndex) node.Bit_Me();
+        }
     }
 
     public void Loose()
@@ -317,6 +321,7 @@ public class Manager : MonoBehaviour
             if (duplicatedNodes[i].myIndex == node.myIndex)
             {
                 duplicatedNodes[i].Stop_Node();
+
             }
         }
     }

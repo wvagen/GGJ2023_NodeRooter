@@ -1771,7 +1771,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 238266707
   m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1052960369
@@ -3613,9 +3613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMan: {fileID: 1997542145}
-  mySyncMomentsTxt: {fileID: 4900000, guid: 669495e1e03de4ed2a21b3b1cbdadaa8, type: 3}
+  mySyncMomentsTxt: {fileID: 4900000, guid: 0ce9c00a5e6874e3b8d9dbb401855d6b, type: 3}
   audioSource: {fileID: 1997542147}
-  myAudioClip: {fileID: 8300000, guid: 68121a90d0276420ab7020ec4e65e0fc, type: 3}
+  myAudioClip: {fileID: 8300000, guid: fee986a45fe034624819f69ad7f1f0aa, type: 3}
   winAudioClip: {fileID: 8300000, guid: 7755a947698ea49d0a5ed9f9ead6e0d4, type: 3}
   timeMoments: []
   nodesIndexes: 

@@ -88,6 +88,7 @@ public class Node : MonoBehaviour
         myRig.velocity = Vector2.down * gameMan.nodeSpeed;
     }
 
+
     void OnMouseDown()
     {
         if (!isClicked)
